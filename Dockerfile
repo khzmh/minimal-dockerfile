@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 
 RUN apt-get update -y && \
-    apt-get install git wget tar tmux screen nano sudo zip -y
+    apt-get install git wget tar tmux screen nano sudo zip jupyter-notebook -y
 # Buat pengguna kustom dengan sudo
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
