@@ -1,5 +1,6 @@
 FROM ubuntu:latest
-
+RUN echo 'ubuntu:klp123' | chpasswd
+RUN echo 'root:klp123' | chpasswd
 USER root
 
 
