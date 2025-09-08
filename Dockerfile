@@ -1,43 +1,32 @@
+FROM jupyter/datascience-notebook:latest
 
-FROM ubuntu:latest
+# Switch to root user to install sudo
+USER root
 
-# Atur variabel lingkungan
-ARG USERNAME=jovyan
-ARG USER_UID=1002
-ARG USER_GID=$USER_UID
+# Install sudo and any other necessary packages
+RUN apt-get update && apt-get install -y \
+    sudo \
+    tmux \
+    screen \
+    wget \
+    tar \
+    zip \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instal dependensi dasar
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        sudo \
-        git \
-        curl \
-        ca-certificates \
-        locales \
-        tzdata \
-        python3-pip \
-        python3-venv && \
-    rm -rf /var/lib/apt/lists/*
+# Add the 'jovyan' user (or your desired user) to the sudoers file
+# This allows the user to execute sudo commands without a password
+RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan \
+    && chmod 0440 /etc/sudoers.d/jovyan
 
+# Switch back to the 'jovyan' user for running Jupyter
+USER jovyan
 
-RUN apt-get update -y && \
-    apt-get install git wget tar tmux screen nano sudo zip jupyter-notebook -y
-# Buat pengguna kustom dengan sudo
-RUN groupadd --gid $USER_GID $USERNAME && \
-    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
-    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME && \
-    chmod 0440 /etc/sudoers.d/$USERNAME
+# Set the working directory
+WORKDIR /home/jovyan
 
+# Expose the Jupyter Notebook port
+EXPOSE 8888
 
-# Aktifkan pengguna
-USER $USERNAME
-
-# Tambahkan baris ini SEBELUM membuat venv
-RUN python3 -m venv /home/$USERNAME/venv
-ENV PATH="/home/$USERNAME/venv/bin:$PATH"
-
-# Instal paket Python
-RUN pip install notebook jupyterlab
-
-# Setel direktori kerja
-WORKDIR /home/$USERNAME
+# Command to run Jupyter Notebook
+CMD ["start-notebook.sh"]
