@@ -42,6 +42,10 @@ ENV PATH="/home/$USERNAME/venv/bin:$PATH"
 # Aktifkan pengguna
 USER $USERNAME
 
+# Tambahkan baris ini SEBELUM membuat venv
+RUN mkdir -p /opt/venv && \
+    chown $USERNAME:$USERNAME /opt/venv
+
 # Buat virtual environment Python
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
