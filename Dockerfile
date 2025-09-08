@@ -28,9 +28,6 @@ RUN groupadd --gid $USER_GID $USERNAME && \
     echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME && \
     chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Atur zona waktu (opsional)
-RUN ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && \
-    locale-gen en_US.UTF-8
 
 # Aktifkan pengguna
 USER $USERNAME
