@@ -40,9 +40,4 @@ RUN python3 -m venv /home/$USERNAME/venv
 ENV PATH="/home/$USERNAME/venv/bin:$PATH"
 
 # Instal paket Python
-RUN pip install --no-cache-dir notebook jupyterlab
 
-# Setel direktori kerja
-WORKDIR /home/$USERNAME
-
-CMD ["/home/$USERNAME/venv/bin/jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
