@@ -1,4 +1,7 @@
-FROM python:3.9-slim
+FROM ubuntu:latest
+
+RUN apt-get update -y && \
+    apt-get install git wget tar tmux screen -y
 # install the notebook package
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook jupyterlab
