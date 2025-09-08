@@ -2,8 +2,8 @@
 FROM ubuntu:latest
 
 # Atur variabel lingkungan
-ARG USERNAME=binder
-ARG USER_UID=1000
+ARG USERNAME=jovyan
+ARG USER_UID=1002
 ARG USER_GID=$USER_UID
 
 # Instal dependensi dasar
