@@ -37,7 +37,7 @@ RUN python3 -m venv /home/$USERNAME/venv
 ENV PATH="/home/$USERNAME/venv/bin:$PATH"
 
 # Instal paket Python
-RUN pip install --no-cache-dir notebook jupyterlab
+RUN pip install notebook jupyterlab
 
 # Setel direktori kerja
 WORKDIR /home/$USERNAME
