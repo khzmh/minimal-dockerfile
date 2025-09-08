@@ -36,12 +36,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && \
 USER $USERNAME
 
 # Tambahkan baris ini SEBELUM membuat venv
-RUN mkdir -p /opt/venv && \
-    chown $USERNAME:$USERNAME /opt/venv
-
-# Buat virtual environment Python
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+RUN python3 -m venv /home/$USERNAME/venv
+ENV PATH="/home/$USERNAME/venv/bin:$PATH"
 
 # Instal paket Python
 RUN pip install --no-cache-dir notebook jupyterlab
