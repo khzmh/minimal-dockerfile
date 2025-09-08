@@ -45,3 +45,4 @@ RUN pip install --no-cache-dir notebook jupyterlab
 # Setel direktori kerja
 WORKDIR /home/$USERNAME
 
+CMD ["/home/$USERNAME/venv/bin/jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
