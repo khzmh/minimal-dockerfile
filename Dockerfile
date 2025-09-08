@@ -1,9 +1,7 @@
 FROM jupyter/datascience-notebook:latest
 
-# Switch to root user to install sudo
+# Instal paket sebagai root (sebelum switch user)
 USER root
-
-# Install sudo and any other necessary packages
 RUN apt-get update && apt-get install -y \
     sudo \
     tmux \
@@ -14,12 +12,11 @@ RUN apt-get update && apt-get install -y \
     nano \
     && rm -rf /var/lib/apt/lists/*
 
-# Add the 'jovyan' user (or your desired user) to the sudoers file
-# This allows the user to execute sudo commands without a password
+# Buat konfigurasi sudoers (tetapkan sebelum switch user)
 RUN echo "jovyan ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/jovyan \
     && chmod 0440 /etc/sudoers.d/jovyan
 
-# Switch back to the 'jovyan' user for running Jupyter
+# Switch ke user non-root
 USER jovyan
 
 # Set the working directory
