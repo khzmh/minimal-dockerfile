@@ -41,12 +41,3 @@ RUN pip install --no-cache-dir notebook jupyterlab
 
 # Setel direktori kerja
 WORKDIR /home/$USERNAME
-
-# Expose port Jupyter
-EXPOSE 8888
-
-# Perintah default
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888"]
-
-# Instal paket Python
-
