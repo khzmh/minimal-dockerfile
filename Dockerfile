@@ -35,13 +35,6 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && \
 # Aktifkan pengguna
 USER $USERNAME
 
-# Buat virtual environment Python
-RUN python3 -m venv /home/$USERNAME/venv
-ENV PATH="/home/$USERNAME/venv/bin:$PATH"
-
-# Aktifkan pengguna
-USER $USERNAME
-
 # Tambahkan baris ini SEBELUM membuat venv
 RUN mkdir -p /opt/venv && \
     chown $USERNAME:$USERNAME /opt/venv
